@@ -1,0 +1,43 @@
+.popup {
+  height: 30vh;
+  width: 40vw;
+  background-color: rgba(whitesmoke, 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border: 1px solid rgba(black, 0.4);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+
+  &__close {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+
+    &:hover {
+      color: rgb(63, 63, 206);
+    }
+  }
+}
+
+.btn-grp {
+  display: flex;
+  width: 100%;
+  margin: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.line {
+  width: 96%;
+  height: 1px;
+  padding: 0 2%;
+  margin: 1rem;
+  background-color: rgba(black, 0.3);
+}

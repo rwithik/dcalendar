@@ -1,0 +1,56 @@
+.popup {
+  height: fit-content;
+  width: fit-content;
+  padding: 1rem;
+}
+
+.input-grp-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.input__time {
+  margin: 1rem;
+}
+
+input {
+  all: unset;
+  border-bottom: 1px solid rgba(black, 0.4);
+  padding: 0.5rem;
+  transition: all 150ms ease-in-out;
+
+  &:focus {
+    border-bottom: 1px solid rgba(174, 4, 241, 1);
+  }
+}
+
+.select {
+  position: relative;
+  width: fit-content;
+  text-align: center;
+  border: 1px solid rgba(black, 0.4);
+  color: black;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  width: 50%;
+  // input {
+  // border: 1px solid rgba(174, 4, 241, 1);
+  // width: 50%;
+  // }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    background: #fafafa url("https://image.flaticon.com/icons/svg/60/60995.svg")
+      no-repeat 90% 50%;
+    background-size: 20px;
+    z-index: 1;
+  }
+}

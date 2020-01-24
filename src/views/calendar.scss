@@ -1,0 +1,39 @@
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding: 1rem;
+}
+
+.calendar-container {
+  margin: 1rem;
+  flex-basis: 80%;
+}
+
+.calendar__buttons {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  all: unset;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border: 1px solid rgb(63, 63, 206);
+  border-radius: 5px;
+  color: rgb(63, 63, 206);
+  transition: all 150ms cubic-bezier(0.5, 0, 1, 0.5);
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: rgb(63, 63, 206);
+  }
+}
