@@ -33,6 +33,10 @@ class AddTask extends Component {
 
   handleSave = () => {
     const { title, start, end, group } = this.state;
+    const groups = JSON.parse(localStorage.getItem("calendar.groups"));
+    const color = groups.filter(g => g.name === group)[0].color;
+    console.log(color);
+
     if (title.length === 0) return null;
     this.setState({
       start: null,
@@ -44,7 +48,8 @@ class AddTask extends Component {
       title,
       start,
       end,
-      group
+      group,
+      backgroundColor: color
     });
   };
 
@@ -53,8 +58,8 @@ class AddTask extends Component {
     if (groups.length === 0) return [];
     return groups.map(item => {
       return (
-        <option key={item} value={item}>
-          {item}
+        <option key={item.name} value={item.name}>
+          {item.name}
         </option>
       );
     });

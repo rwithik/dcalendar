@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { CirclePicker } from "react-color";
 
 import "./popup.scss";
 
 class GroupPopup extends Component {
   state = {
-    group: ""
+    group: "",
+    color: ""
   };
 
   handleChange = e => {
@@ -15,8 +17,18 @@ class GroupPopup extends Component {
   };
 
   addGroup = () => {
-    const { group } = this.state;
+    const group = {
+      name: this.state.group,
+      color: this.state.color
+    };
     this.props.addHandler(group);
+  };
+
+  handleColorChange = e => {
+    console.log(e);
+    this.setState({
+      color: e.hex
+    });
   };
 
   render() {
@@ -34,6 +46,7 @@ class GroupPopup extends Component {
           value={this.state.group}
           onChange={this.handleChange}
         />
+        <CirclePicker onChangeComplete={this.handleColorChange} />
 
         <button className="btn btn--add" onClick={this.addGroup}>
           Add Group
