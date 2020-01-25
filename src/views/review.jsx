@@ -29,7 +29,7 @@ class Review extends Component {
     let count = 1;
     return events.map(event => {
       return (
-        <tr>
+        <tr key={event.title}>
           <td>{count++}</td>
           <td>{event.title}</td>
           <td>

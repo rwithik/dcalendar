@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 import NavBar from "../components/navbar";
 import landingImg from "../public/images/600.jpg";
+import { UserSession, AppConfig } from "blockstack";
 import "./home.scss";
 
+const appConfig = new AppConfig();
+const userSession = new UserSession({ appConfig: appConfig });
+
 class Home extends Component {
+  componentDidMount() {
+    if (userSession.isSignInPending()) {
+      userSession.handlePendingSignIn().then(userData => {
+        this.props.history.push("/calendar");
+      });
+    }
+  }
+
   render() {
     return (
       <React.Fragment>

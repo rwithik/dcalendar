@@ -10,15 +10,21 @@
   height: 100%;
 }
 
-.nav__login {
+.nav__login,
+.nav__logout {
+  all: unnset;
   padding: 0.5rem 2rem;
   border: 1px solid var(--clr-accent);
   border-radius: 5px;
   font-weight: bold;
   background-color: rgba(89, 0, 255, 0.3);
-  transition: background-color 150ms cubic-bezier(0.5, 0, 0.5, 1);
+  color: white;
+  cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.5, 0, 0.5, 1),
+    color 150ms cubic-bezier(0.5, 0, 0.5, 1);
 }
 
 .nav__login:hover {
   background-color: var(--clr-light);
+  color: rgb(89, 0, 255);
 }
