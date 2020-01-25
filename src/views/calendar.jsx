@@ -33,14 +33,14 @@ class Calendar extends Component {
     try {
       groups = await userSession.getFile("groups.json", options);
       events = await userSession.getFile("events.json", options);
-      localStorage.setItem("calendar.events", events);
-      localStorage.setItem("calendar.groups", groups);
       if (groups === null) {
-        groups = ["Default"];
+        groups = [];
       }
       if (events === null) {
         events = [];
       }
+      localStorage.setItem("calendar.groups", groups);
+      localStorage.setItem("calendar.events", events);
     } catch (err) {
       console.error(err);
     }

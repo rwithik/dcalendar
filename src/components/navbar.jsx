@@ -8,7 +8,9 @@ const userSession = new UserSession({ appConfig: appConfig });
 
 class NavBar extends Component {
   state = {
-    username: "davidbeckham.id",
+    username: !this.props.notLoggedIn
+      ? userSession.loadUserData().username
+      : "",
     notLoggedIn: this.props.notLoggedIn
   };
 

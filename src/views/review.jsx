@@ -44,7 +44,7 @@ class Review extends Component {
                 this.props.history.push("/calendar");
               }}
             >
-              Reschedlue
+              Reschedule
             </button>
           </td>
         </tr>
