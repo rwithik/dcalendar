@@ -16,8 +16,8 @@ class Review extends Component {
   getOptions = () => {
     return JSON.parse(localStorage.getItem("calendar.groups")).map(group => {
       return (
-        <option key={group} value={group}>
-          {group}
+        <option key={group.name} value={group.name}>
+          {group.name}
         </option>
       );
     });
