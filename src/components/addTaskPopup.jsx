@@ -54,7 +54,7 @@ class AddTask extends Component {
   };
 
   getGroups = () => {
-    const groups = JSON.parse(localStorage.getItem("calendar.groups"));
+    const groups = [];
     if (groups.length === 0) return [];
     return groups.map(item => {
       return (
