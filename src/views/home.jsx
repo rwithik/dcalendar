@@ -11,6 +11,8 @@ class Home extends Component {
   componentDidMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then(userData => {
+       localStorage.setItem("calendar.events", []);
+       localStorage.setItem("calendar.groups", []);
         this.props.history.push("/calendar");
       });
     }

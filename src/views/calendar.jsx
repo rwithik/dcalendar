@@ -41,14 +41,15 @@ class Calendar extends Component {
       }
       localStorage.setItem("calendar.groups", groups);
       localStorage.setItem("calendar.events", events);
+      this.setState({
+      groups: groups,
+      events: events
+    });
     } catch (err) {
       console.error(err);
     }
 
-    this.setState({
-      groups: JSON.parse(localStorage.getItem("calendar.groups")) || [],
-      events: JSON.parse(localStorage.getItem("calendar.events")) || []
-    });
+    
   }
 
   handleClosePopup = () => {

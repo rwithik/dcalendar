@@ -9,7 +9,7 @@ class AddTask extends Component {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: JSON.parse(localStorage.getItem("calendar.groups"))[0] || ""
+    group: []
   };
 
   handleChangeStartDate = d => {
