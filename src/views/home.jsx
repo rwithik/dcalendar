@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "../components/navbar";
-import landingImg from "../public/images/600.jpg";
+import landingImg from "../public/images/thumb.jpg";
 import { UserSession, AppConfig } from "blockstack";
 import "./home.scss";
 

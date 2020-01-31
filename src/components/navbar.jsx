@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../public/images/200.jpg";
+import logo from "../public/images/logo.png";
 import { UserSession, AppConfig } from "blockstack";
 import "./navbar.scss";
 
