@@ -3,7 +3,8 @@ import NavBar from "../components/navbar";
 import landingImg from "../public/images/thumb.jpg";
 import { UserSession, AppConfig } from "blockstack";
 import "./home.scss";
-
+import Lottie from 'react-lottie';
+import animationData from '../public/cal.json'
 const appConfig = new AppConfig();
 const userSession = new UserSession({ appConfig: appConfig });
 
@@ -19,6 +20,14 @@ class Home extends Component {
   }
 
   render() {
+  const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    }
     return (
       <React.Fragment>
         <NavBar notLoggedIn={true} />
@@ -38,7 +47,9 @@ class Home extends Component {
             </span>
           </div>
           <div className="landing__right">
-            <img src={landingImg} alt="" className="landing__img" />
+           <Lottie options={defaultOptions}
+              height={400} width={700}
+            />
           </div>
           <div className="copyright">Copyright @DCalendar2019</div>
         </section>
