@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import logo from "../public/images/logo.png";
+import { Link } from "react-router-dom";
 import { UserSession, AppConfig } from "blockstack";
 import "./navbar.scss";
 
@@ -29,9 +30,18 @@ class NavBar extends Component {
       <nav className="nav">
         <img src={logo} alt="" className="nav__logo" />
         {userSession.isUserSignedIn() ? (
-          <button className="nav__login" onClick={this.handleSignOut}>
-            Logout
-          </button>
+          <div>
+            <Link className="nav__login" to="/calendar">
+              Calendar
+            </Link>
+            <button
+              className="nav__login"
+              style={{ marginLeft: "1rem" }}
+              onClick={this.handleSignOut}
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <button className="nav__login" onClick={this.handleSignin}>
             Login

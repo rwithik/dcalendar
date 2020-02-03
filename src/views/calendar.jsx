@@ -31,15 +31,17 @@ class Calendar extends Component {
     let groups;
 
     try {
-      groups = await userSession.getFile("groups.json", options);
+      groups = JSON.parse(await userSession.getFile("groups.json", options));
       events = await userSession.getFile("events.json", options);
-      if (groups === null) {
-        groups = [];
+      console.log(groups);
+
+      if (groups === null || groups.length === 0) {
+        groups = [{ name: "default", color: "#607d8b" }];
       }
       if (events === null) {
         events = [];
       }
-      localStorage.setItem("calendar.groups", groups);
+      localStorage.setItem("calendar.groups", JSON.stringify(groups));
       localStorage.setItem("calendar.events", events);
       this.setState({
       groups: groups,
@@ -103,12 +105,17 @@ class Calendar extends Component {
 
   handleSave = event => {
     const events = [...this.state.events, event];
+    console.log(events);
+
     userSession
       .putFile("events.json", JSON.stringify(events), { encrypt: false })
       .then(() => {
         this.setState({ events });
         localStorage.setItem("calendar.events", JSON.stringify(events));
         this.handleClosePopup();
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
