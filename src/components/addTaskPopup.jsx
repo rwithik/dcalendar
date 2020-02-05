@@ -48,8 +48,8 @@ class AddTask extends Component {
       backgroundColor: color
     });
     this.setState({
-      start: null,
-      end: null,
+      start: new Date(),
+      end: new Date(),
       title: "",
       group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
     });
@@ -68,6 +68,8 @@ class AddTask extends Component {
   };
 
   render() {
+    console.log('adt');
+    
     if (!this.props.show) return null;
     return (
       <div className="popup">
