@@ -26,7 +26,7 @@ class Calendar extends Component {
     activeEvent: {}
   };
 
-  async UNSAFE_componentWillMount() {
+  async componentDidMount() {
     let events;
     let groups;
     console.log("cla");
@@ -55,8 +55,6 @@ class Calendar extends Component {
     } catch (err) {
       console.error(err);
     }
-
-    
   }
 
   handleClosePopup = () => {

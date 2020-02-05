@@ -9,8 +9,17 @@ class AddTask extends Component {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
+    group: ""
   };
+
+  componentDidMount() {
+    let groups = localStorage.getItem("calendar.groups");
+    if (groups.length === 0 || !groups) {
+      groups = { name: "default", color: "#BADA55" };
+      localStorage.setItem("calendar.groups", JSON.stringify(groups));
+    }
+    this.setState({ group: "default" });
+  }
 
   handleChangeStartDate = d => {
     this.setState({
