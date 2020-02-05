@@ -9,7 +9,7 @@ class AddTask extends Component {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: JSON.parse(localStorage.getItem("calendar.groups"))[0]
+    group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
   };
 
   handleChangeStartDate = d => {
@@ -36,7 +36,7 @@ class AddTask extends Component {
     const groups = JSON.parse(localStorage.getItem("calendar.groups"));
     console.log(groups, group);
 
-    const color = groups.filter(g => g.name === group.name)[0].color;
+    const color = groups.filter(g => g.name === group)[0].color;
     console.log(color);
 
     if (title.length === 0) return null;
@@ -51,7 +51,7 @@ class AddTask extends Component {
       start: null,
       end: null,
       title: "",
-      group: ""
+      group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
     });
   };
 
