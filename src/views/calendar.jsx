@@ -32,8 +32,8 @@ class Calendar extends Component {
 
     try {
       groups = JSON.parse(await userSession.getFile("groups.json", options));
-      events = await userSession.getFile("events.json", options);
-      console.log(groups);
+      events = JSON.parse(await userSession.getFile("events.json", options));
+      console.log(events);
 
       if (groups === null || groups.length === 0) {
         groups = [{ name: "default", color: "#607d8b" }];
@@ -41,11 +41,16 @@ class Calendar extends Component {
           encrypt: false
         });
       }
-      if (events === null) {
+      if (events === null || events.length === 0) {
         events = [];
+        userSession.putFile("events.json", JSON.stringify(events), {
+          encrypt: false
+        });
       }
+      console.log(events);
+
       localStorage.setItem("calendar.groups", JSON.stringify(groups));
-      localStorage.setItem("calendar.events", events);
+      localStorage.setItem("calendar.events", JSON.stringify(events));
     } catch (err) {
       console.error(err);
     }
