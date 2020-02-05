@@ -26,9 +26,10 @@ class Calendar extends Component {
     activeEvent: {}
   };
 
-  async componentDidMount() {
+  async UNSAFE_componentWillMount() {
     let events;
     let groups;
+    console.log("cla");
 
     try {
       groups = JSON.parse(await userSession.getFile("groups.json", options));

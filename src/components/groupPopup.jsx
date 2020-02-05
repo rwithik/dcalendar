@@ -6,7 +6,7 @@ import "./popup.scss";
 class GroupPopup extends Component {
   state = {
     group: "",
-    color: ""
+    color: "#fefefe"
   };
 
   handleChange = e => {

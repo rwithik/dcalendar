@@ -9,7 +9,7 @@ class AddTask extends Component {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: JSON.parse(localStorage.getItem("calendar.groups"))[0]
+    group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
   };
 
   handleChangeStartDate = d => {
@@ -34,8 +34,10 @@ class AddTask extends Component {
   handleSave = () => {
     const { title, start, end, group } = this.state;
     const groups = JSON.parse(localStorage.getItem("calendar.groups"));
-    const color = groups.filter(g => g.name === group.name)[0].color;
-  
+    console.log(groups, group);
+
+    const color = groups.filter(g => g.name === group)[0].color;
+    console.log(color);
 
     if (title.length === 0) return null;
     this.props.saveHandler({
@@ -46,10 +48,10 @@ class AddTask extends Component {
       backgroundColor: color
     });
     this.setState({
-      start: null,
-      end: null,
+      start: new Date(),
+      end: new Date(),
       title: "",
-      group: ""
+      group: JSON.parse(localStorage.getItem("calendar.groups"))[0].name
     });
   };
 
@@ -66,6 +68,8 @@ class AddTask extends Component {
   };
 
   render() {
+    console.log("adt");
+
     if (!this.props.show) return null;
     return (
       <div className="popup">
