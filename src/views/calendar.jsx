@@ -52,6 +52,7 @@ class Calendar extends Component {
 
       localStorage.setItem("calendar.groups", JSON.stringify(groups));
       localStorage.setItem("calendar.events", JSON.stringify(events));
+      this.setState({ groups, events });
     } catch (err) {
       console.error(err);
     }
