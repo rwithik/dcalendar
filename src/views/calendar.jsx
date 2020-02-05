@@ -37,6 +37,9 @@ class Calendar extends Component {
 
       if (groups === null || groups.length === 0) {
         groups = [{ name: "default", color: "#607d8b" }];
+        userSession.putFile("groups.json", JSON.stringify(groups), {
+          encrypt: false
+        });
       }
       if (events === null) {
         events = [];
