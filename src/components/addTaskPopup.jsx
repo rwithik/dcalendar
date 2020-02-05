@@ -5,21 +5,11 @@ import "./popup.scss";
 import "./addpopup.scss";
 
 class AddTask extends Component {
- 
-  let groupValue = "";
-  if (localStorage.getItem("calendar.groups"))
-  {
-    groupValue = JSON.parse(localStorage.getItem("calendar.groups"))[0];
-  }
-  else{
-    groupValue = "default";
-  }
-  
   state = {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: groupValue
+    group: JSON.parse(localStorage.getItem("calendar.groups"))[0]
   };
 
   handleChangeStartDate = d => {
