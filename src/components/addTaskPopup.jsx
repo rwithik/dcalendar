@@ -34,10 +34,8 @@ class AddTask extends Component {
   handleSave = () => {
     const { title, start, end, group } = this.state;
     const groups = JSON.parse(localStorage.getItem("calendar.groups"));
-    console.log(groups, group);
-
     const color = groups.filter(g => g.name === group.name)[0].color;
-    console.log(color);
+  
 
     if (title.length === 0) return null;
     this.props.saveHandler({
