@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import NavBar from "../components/navbar";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import EventPopup from "../components/eventPopup";
 import EditPopup from "../components/editPopup";
 import AddTask from "../components/addTaskPopup";
 import GroupPopup from "../components/groupPopup";
 
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import { UserSession, AppConfig } from "blockstack";
+
 import "./calendar.scss";
+
+const appConfig = new AppConfig();
+const options = { decrypt: false };
+const userSession = new UserSession({ appConfig: appConfig });
 
 class Calendar extends Component {
   state = {
@@ -15,10 +21,40 @@ class Calendar extends Component {
     showEditPopup: false,
     showAddPopup: false,
     showGroupPopup: false,
-    groups: JSON.parse(localStorage.getItem("calendar.groups")) || [],
-    events: JSON.parse(localStorage.getItem("calendar.events")) || [],
+    groups: [],
+    events: [],
     activeEvent: {}
   };
+
+  async componentDidMount() {
+    let events;
+    let groups;
+
+    try {
+      groups = JSON.parse(await userSession.getFile("groups.json", options));
+      events = await userSession.getFile("events.json", options);
+      console.log(groups);
+
+      if (groups === null || groups.length === 0) {
+        groups = [{ name: "default", color: "#607d8b" }];
+        userSession.putFile("groups.json", JSON.stringify(groups), {
+          encrypt: false
+        });
+      }
+      if (events === null) {
+        events = [];
+      }
+      localStorage.setItem("calendar.groups", JSON.stringify(groups));
+      localStorage.setItem("calendar.events", events);
+    } catch (err) {
+      console.error(err);
+    }
+
+    this.setState({
+      groups: JSON.parse(localStorage.getItem("calendar.groups")) || [],
+      events: JSON.parse(localStorage.getItem("calendar.events")) || []
+    });
+  }
 
   handleClosePopup = () => {
     this.setState({
@@ -53,12 +89,16 @@ class Calendar extends Component {
     events = events.filter(
       event => event.title !== this.state.activeEvent.title
     );
-    this.setState({
-      events,
-      showEditPopup: false,
-      showPopup: false
-    });
-    localStorage.setItem("calendar.events", JSON.stringify(events));
+    userSession
+      .putFile("events.json", JSON.stringify(events), { encrypt: false })
+      .then(() => {
+        this.setState({
+          events,
+          showEditPopup: false,
+          showPopup: false
+        });
+        localStorage.setItem("calendar.events", JSON.stringify(events));
+      });
   };
 
   handleAddTask = () => {
@@ -67,11 +107,18 @@ class Calendar extends Component {
 
   handleSave = event => {
     const events = [...this.state.events, event];
-    this.setState({
-      events
-    });
-    localStorage.setItem("calendar.events", JSON.stringify(events));
-    this.handleClosePopup();
+    console.log(events);
+
+    userSession
+      .putFile("events.json", JSON.stringify(events), { encrypt: false })
+      .then(() => {
+        this.setState({ events });
+        localStorage.setItem("calendar.events", JSON.stringify(events));
+        this.handleClosePopup();
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   handleUpdate = event => {
@@ -80,11 +127,13 @@ class Calendar extends Component {
       event => event.title !== this.state.activeEvent.title
     );
     events.push(event);
-    this.setState({
-      events
-    });
-    localStorage.setItem("calendar.events", JSON.stringify(events));
-    this.handleClosePopup();
+    userSession
+      .putFile("events.json", JSON.stringify(events), { encrypt: false })
+      .then(() => {
+        this.setState({ events });
+        localStorage.setItem("calendar.events", JSON.stringify(events));
+        this.handleClosePopup();
+      });
   };
 
   handleAddGroup = () => {
@@ -94,9 +143,13 @@ class Calendar extends Component {
   handleSaveGroup = group => {
     if (group.length === 0) return;
     const groups = [...this.state.groups, group];
-    this.setState({ groups });
-    localStorage.setItem("calendar.groups", JSON.stringify(groups));
-    this.handleClosePopup();
+    userSession
+      .putFile("groups.json", JSON.stringify(groups), { encrypt: false })
+      .then(() => {
+        this.setState({ groups });
+        localStorage.setItem("calendar.groups", JSON.stringify(groups));
+        this.handleClosePopup();
+      });
   };
 
   render() {

@@ -9,7 +9,7 @@ class AddTask extends Component {
     title: "",
     start: new Date(),
     end: new Date(),
-    group: ""
+    group: JSON.parse(localStorage.getItem("calendar.groups"))[0]
   };
 
   handleChangeStartDate = d => {
@@ -33,28 +33,35 @@ class AddTask extends Component {
 
   handleSave = () => {
     const { title, start, end, group } = this.state;
+    const groups = JSON.parse(localStorage.getItem("calendar.groups"));
+    console.log(groups, group);
+
+    const color = groups.filter(g => g.name === group.name)[0].color;
+    console.log(color);
+
     if (title.length === 0) return null;
+    this.props.saveHandler({
+      title,
+      start,
+      end,
+      group,
+      backgroundColor: color
+    });
     this.setState({
       start: null,
       end: null,
       title: "",
       group: ""
     });
-    this.props.saveHandler({
-      title,
-      start,
-      end,
-      group
-    });
   };
 
   getGroups = () => {
     const groups = JSON.parse(localStorage.getItem("calendar.groups"));
-    console.log(groups);
+    if (groups.length === 0) return [];
     return groups.map(item => {
       return (
-        <option key={item} value={item}>
-          {item}
+        <option key={item.name} value={item.name}>
+          {item.name}
         </option>
       );
     });
@@ -70,7 +77,7 @@ class AddTask extends Component {
         <input
           type="text"
           className="input--title"
-          placeholder="Task Title"
+          placeholder="Enter Task Title"
           name="title"
           value={this.state.title}
           onChange={this.handleChange}

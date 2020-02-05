@@ -16,8 +16,8 @@ class Review extends Component {
   getOptions = () => {
     return JSON.parse(localStorage.getItem("calendar.groups")).map(group => {
       return (
-        <option key={group} value={group}>
-          {group}
+        <option key={group.name} value={group.name}>
+          {group.name}
         </option>
       );
     });
@@ -29,7 +29,7 @@ class Review extends Component {
     let count = 1;
     return events.map(event => {
       return (
-        <tr>
+        <tr key={event.title}>
           <td>{count++}</td>
           <td>{event.title}</td>
           <td>
@@ -44,7 +44,7 @@ class Review extends Component {
                 this.props.history.push("/calendar");
               }}
             >
-              Reschedlue
+              Reschedule
             </button>
           </td>
         </tr>
